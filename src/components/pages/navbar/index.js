@@ -5,7 +5,7 @@ import DesktopNavBar from './DesktopNavBar';
 
 const NavBar = () => {
     const theme = useTheme();
-    const match = useMediaQuery(theme.breakpoints.down('md'))
+    const match = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <div>
     {match? <MobileNavBar match={match} /> :<DesktopNavBar  match={match}/>}

@@ -26,7 +26,7 @@ export const Search = styled('div')(({ theme }) => ({
       width: 'auto',
       
     },
-    [theme.breakpoints.down('md')]:{
+    [theme.breakpoints.down('sm')]:{
       width:'168px',
       margin: '0px 0px 0px 56px'
       

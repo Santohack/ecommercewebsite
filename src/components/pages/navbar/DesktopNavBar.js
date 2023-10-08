@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavContainer, Search, SearchIconWrapper, StyledInputBase } from '../../styles/navbar'
-import { AppBar, Button, Toolbar, Typography } from '@mui/material'
+import { AppBar, Toolbar, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import NavIcon from './NavIcon';
 const DesktopNavBar = ({match}) => {
@@ -24,7 +24,7 @@ const DesktopNavBar = ({match}) => {
             </Search>
             <NavIcon match={match} />
 
-            <Button color="inherit">Login</Button>
+           
           </Toolbar>
         </AppBar>
       </NavContainer>
