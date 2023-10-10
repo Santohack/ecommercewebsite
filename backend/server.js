@@ -1,9 +1,10 @@
 import express from 'express';
-
+import dotenv from 'dotenv';
+dotenv.config();
 import products from './data/Products.js';
 const app = express();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 8000;
 app.get('/', (req,res)=>{
  res.send("api is reunning!");
 })

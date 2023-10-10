@@ -1,11 +1,27 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { ProductListContainer, ProductListGrid, ProductListGridItem,ProductListImg } from '../../styles/productList'
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material'
-import products from '../../data/products' 
-import ProductRating from '../rating'
 
+import ProductRating from '../rating'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 const ProductList = () => {
+  const [products, setProducts] = useState([])
+  useEffect(()=>{ 
+    const allProducts =  async ()=>{
+      try {
+          const {data} = await axios.get(`api/products`)
+         
+          setProducts(data)
+      } catch (error) {
+        console.error(error)
+      }
+    
+    }
+  allProducts();
+  },[])
+
+  console.log("products", products);
   return (
     <>
     <Typography variant='h4' mt={4}> Latest Product</Typography>

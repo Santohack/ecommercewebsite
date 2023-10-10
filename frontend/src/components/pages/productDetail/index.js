@@ -1,15 +1,28 @@
-import React from 'react'
-import products from '../../data/products'
+import React, { useEffect, useState } from 'react'
+// import products from '../../data/products'
 import { Link, useParams } from 'react-router-dom'
 import { ImageContainer, Item, ProductDetailContainer } from '../../styles/productDetails'
-import { Button, Divider, Grid, ListItem, ListItemButton, ListItemText, Paper, Typography } from '@mui/material'
+import { Button, Divider, Grid, ListItem, ListItemText, Typography } from '@mui/material'
 import { MyList } from '../../styles/navbar'
 import ProductRating from '../rating'
-import {Description} from '@mui/icons-material'
+import axios from 'axios'
 
 const ProductDetail = () => {
+  const [product, setProduct] = useState({})
   const { id: productId } = useParams()
-  const product = products.find((p) => p._id === productId)
+  useEffect(() => {
+    const ProductData = async () => {
+      try {
+        const response = await axios.get(`/api/products/${productId}`)
+        setProduct(response.data)
+      } catch (err) {
+        console.error(err)
+      }
+
+    }
+    ProductData()
+  }, [productId])
+  console.log("productID", product);
   return (
     <ProductDetailContainer>
 
@@ -58,12 +71,12 @@ const ProductDetail = () => {
             </ListItem>
             <ListItem>
               <Item>
-                Status: {product.countInStock >0? 'In Stock': 'Out of Stock'}
+                Status: {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
               </Item>
             </ListItem>
             <ListItem>
               <Item>
-<Button variant='contained' disabled={product.countInStock === 0}> Add To Cart</Button>
+                <Button variant='contained' disabled={product.countInStock === 0}> Add To Cart</Button>
               </Item>
             </ListItem>
           </MyList>
