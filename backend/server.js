@@ -1,19 +1,17 @@
-import express from 'express';
+import connectDB from './config/db.js';
 import dotenv from 'dotenv';
-dotenv.config();
-import products from './data/Products.js';
-const app = express();
+import express from 'express';
+import productRoutes from './routes/productRoutes.js'
 
+dotenv.config();
+
+const app = express();
+connectDB();
 const PORT = process.env.PORT || 8000;
 app.get('/', (req,res)=>{
- res.send("api is reunning!");
+ res.send("api is running!");
 })
 
-app.get('/api/products', (req,res)=>{
-    res.json(products)
-})
-app.get('/api/products/:id', (req,res)=>{
-    const product = products.find((p)=> p._id === req.params.id)
-    res.json(product)
-})
+app.use('/api/products',productRoutes)
+
 app.listen(PORT, ()=> console.log(`api ins running ${PORT}`))

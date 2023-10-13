@@ -30,10 +30,3 @@ export const Item = styled(Paper)(({theme})=>({
     }
 }))
 
-export const ProductDes = styled(Typography)(()=>({
-    fontSize:"35px",
-    paddingLeft:"10px",
-    color:"#8c9bab",
-    justifyContent:"center",
-    textAlign:"left",
-    }));
