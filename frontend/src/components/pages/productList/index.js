@@ -1,30 +1,34 @@
-import React,{useEffect,useState} from 'react'
-import { ProductListContainer, ProductListGrid, ProductListGridItem,ProductListImg } from '../../styles/productList'
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material'
+import { ProductListContainer, ProductListGrid, ProductListGridItem, ProductListImg } from '../../styles/productList'
+import React,{useEffect, useState} from 'react'
 
+import { Link } from 'react-router-dom'
 import ProductRating from '../rating'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-const ProductList = () => {
-  const [products, setProducts] = useState([])
-  useEffect(()=>{ 
-    const allProducts =  async ()=>{
-      try {
-          const {data} = await axios.get(`api/products`)
-         
-          setProducts(data)
-      } catch (error) {
-        console.error(error)
-      }
-    
-    }
-  allProducts();
-  },[])
+import { useGetProductsQuery } from '../../../slices/productApiSlice'
 
-  console.log("products", products);
+const ProductList = () => {
+  
+  const { data:products,isLoading,error} =useGetProductsQuery()
+  // const [products, setProducts] = useState([])
+  // useEffect(()=>{ 
+  //   const allProducts =  async ()=>{
+  //     try {
+  //         const {data} = await axios.get(`api/products`)
+         
+  //         setProducts(data)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+    
+  //   }
+  // allProducts();
+  // },[])
+
+  // console.log("products", products);
   return (
     <>
-    <Typography variant='h4' mt={4}> Latest Product</Typography>
+    {isLoading? (<h2>Loading....</h2>): error? (<div>{error?.data.message || error?.error} </div>): (<> <Typography variant='h4' mt={4}> Latest Product</Typography>
       <ProductListContainer>
       
         <ProductListGrid container spacing={3}>
@@ -64,7 +68,8 @@ const ProductList = () => {
           
 
         </ProductListGrid>
-      </ProductListContainer>
+      </ProductListContainer></>)}
+   
 
     </>
   )

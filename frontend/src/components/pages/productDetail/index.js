@@ -1,28 +1,38 @@
-import React, { useEffect, useState } from 'react'
-// import products from '../../data/products'
-import { Link, useParams } from 'react-router-dom'
-import { ImageContainer, Item, ProductDetailContainer } from '../../styles/productDetails'
 import { Button, Divider, Grid, ListItem, ListItemText, Typography } from '@mui/material'
+import { ImageContainer, Item, ProductDetailContainer } from '../../styles/productDetails'
+import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+
 import { MyList } from '../../styles/navbar'
 import ProductRating from '../rating'
 import axios from 'axios'
+import { useGetProductsDetailQuery } from '../../../slices/productApiSlice'
+
+// import products from '../../data/products'
+
+
+
+
+
+
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState({})
+  // const [product, setProduct] = useState({})
   const { id: productId } = useParams()
-  useEffect(() => {
-    const ProductData = async () => {
-      try {
-        const response = await axios.get(`/api/products/${productId}`)
-        setProduct(response.data)
-      } catch (err) {
-        console.error(err)
-      }
+  const {data:product, isLoading,error} = useGetProductsDetailQuery(productId)
+  // useEffect(() => {
+  //   const ProductData = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/products/${productId}`)
+  //       setProduct(response.data)
+  //     } catch (err) {
+  //       console.error(err)
+  //     }
 
-    }
-    ProductData()
-  }, [productId])
-  console.log("productID", product);
+  //   }
+  //   ProductData()
+  // }, [productId])
+  // console.log("productID", product);
   return (
     <ProductDetailContainer>
 
@@ -30,8 +40,9 @@ const ProductDetail = () => {
         <Button variant='contained'>Go Back</Button>
       </Link>
 
-
-      <Grid mt={2} container>
+  {isLoading? (<h2>Loading....</h2>): error? (<div>{error?.data.message || error?.error} </div>): (
+    <>
+    <Grid mt={2} container>
         <Grid item md={5}>
           <ImageContainer src={product.image} alt={product.name} />
         </Grid>
@@ -82,6 +93,10 @@ const ProductDetail = () => {
           </MyList>
         </Grid>
       </Grid>
+      </>
+
+  )}
+      
     </ProductDetailContainer>
   )
 }
