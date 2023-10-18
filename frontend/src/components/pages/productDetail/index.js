@@ -11,13 +11,13 @@ import { useGetProductsDetailQuery } from '../../../slices/productApiSlice'
 // import products from '../../data/products'
 
 
-
-
-
-
-
+/**
+ * Renders the product detail page.
+ *
+ * @return {JSX.Element} The product detail component.
+ */
 const ProductDetail = () => {
-  // const [product, setProduct] = useState({})
+// const [product, setProduct] = useState({})
   const { id: productId } = useParams()
   const {data:product, isLoading,error} = useGetProductsDetailQuery(productId)
   // useEffect(() => {
