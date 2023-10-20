@@ -27,7 +27,7 @@ const NavIcon = ({match}) => {
                       <Link to="/cart" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
                        
                        
-      <Badge badgeContent={cartItem.reduce((acc,i)=> acc + i.qty,0 )} color="secondary">
+      <Badge badgeContent={cartItem.reduce((acc,i)=> acc + i.qty, 0 )} color="secondary">
       <AddShoppingCartIcon   />
       </Badge>
   
