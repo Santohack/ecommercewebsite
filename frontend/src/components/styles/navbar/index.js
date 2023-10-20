@@ -1,5 +1,7 @@
 import { Box, InputBase, List, alpha, styled } from "@mui/material";
 
+import { Badge } from "@mui/icons-material";
+
 export const NavContainer = styled(Box)(() => ({
     justifyContent: 'center',
     alignItems: 'center',
@@ -79,3 +81,5 @@ export const Search = styled('div')(({ theme }) => ({
     background:'#39404d'
 
   }))
+
+ 

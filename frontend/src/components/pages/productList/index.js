@@ -2,8 +2,10 @@ import { Button, Card, CardActions, CardContent, Typography } from '@mui/materia
 import { ProductListContainer, ProductListGrid, ProductListGridItem, ProductListImg } from '../../styles/productList'
 import React,{useEffect, useState} from 'react'
 
+import AlertInfo from '../../alert'
 import { Link } from 'react-router-dom'
 import ProductRating from '../rating'
+import Spinner from '../../spinner'
 import axios from 'axios'
 import { useGetProductsQuery } from '../../../slices/productApiSlice'
 
@@ -28,7 +30,7 @@ const ProductList = () => {
   // console.log("products", products);
   return (
     <>
-    {isLoading? (<h2>Loading....</h2>): error? (<div>{error?.data.message || error?.error} </div>): (<> <Typography variant='h4' mt={4}> Latest Product</Typography>
+    {isLoading? (<Spinner />): error? ( <AlertInfo variant={"error"} >{error?.data.message || error?.error}</AlertInfo>): (<> <Typography variant='h4' mt={4}> Latest Product</Typography>
       <ProductListContainer>
       
         <ProductListGrid container spacing={3}>

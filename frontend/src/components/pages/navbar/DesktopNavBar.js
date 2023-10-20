@@ -1,8 +1,10 @@
-import React from 'react'
-import { NavContainer, Search, SearchIconWrapper, StyledInputBase } from '../../styles/navbar'
 import { AppBar, Toolbar, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
+import { NavContainer, Search, SearchIconWrapper, StyledInputBase } from '../../styles/navbar'
+
 import NavIcon from './NavIcon';
+import React from 'react'
+import SearchIcon from '@mui/icons-material/Search';
+
 /**
  * Renders the desktop navigation bar component.
  *
@@ -10,6 +12,8 @@ import NavIcon from './NavIcon';
  * @returns {ReactNode} The rendered navigation bar component.
  */
 const DesktopNavBar = ({ match }) => {
+ 
+
   return (
     <>
       {/* Container for the navigation bar */}

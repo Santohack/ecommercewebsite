@@ -1,11 +1,15 @@
-import React from 'react'
-import { DesktopContainer, MobileContainer, MyList } from '../../styles/navbar'
-import { ListItemButton, ListItemIcon } from '@mui/material'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Badge, IconButton, ListItemButton, ListItemIcon } from '@mui/material'
+import { DesktopContainer, MobileContainer, MyList, StyledBadge } from '../../styles/navbar'
 import { Favorite, Person } from '@mui/icons-material';
+
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from 'react-router-dom';
+import React from 'react'
+import { useSelector } from 'react-redux';
+
 const NavIcon = ({match}) => {
   const Component = match? MobileContainer: DesktopContainer
+  const {cartItem} = useSelector((state)=>state.cart)
     return (
         <>
         <Component>
@@ -21,7 +25,12 @@ const NavIcon = ({match}) => {
                         color: match ? 'grey' : 'inherit'
                     }}>
                       <Link to="/cart" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
-                        <AddShoppingCartIcon   />
+                       
+                       
+      <Badge badgeContent={cartItem.reduce((acc,i)=> acc + i.qty,0 )} color="secondary">
+      <AddShoppingCartIcon   />
+      </Badge>
+  
                         </Link>
                     </ListItemIcon>
                 </ListItemButton>
