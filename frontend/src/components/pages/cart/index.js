@@ -1,15 +1,16 @@
 import { Button, Divider, FormControl, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, MenuItem, Paper, Select, } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { addToCart, deleteItem } from '../../../slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AlertInfo from '../../alert';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
 import React from 'react'
 import { Typography } from '@mui/material';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { cartItem } = useSelector((state) => state.cart)
   const deleteProduct = (id) => {
     dispatch(deleteItem(id))
@@ -17,6 +18,9 @@ const Cart = () => {
   const addToCartHandle = (product, qty) => {
     dispatch(addToCart({ ...product, qty }))
 
+  }
+  const checkoutProcessHandler = ()=>{
+    navigate('/login?redirect=/shipping')
   }
   return (
     <>
@@ -97,7 +101,7 @@ const Cart = () => {
             </ListItem>
             <Divider />
             <ListItemButton>
-              <Button variant='contained'  > Proceed to Checkout</Button>
+              <Button variant='contained' onClick={checkoutProcessHandler} > Proceed to Checkout</Button>
             </ListItemButton>
           </List>
 
