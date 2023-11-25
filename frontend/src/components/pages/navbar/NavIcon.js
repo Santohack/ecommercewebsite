@@ -55,7 +55,7 @@ const NavIcon = ({match}) => {
                         alignItems:'center',
                         color: match ? 'grey' : 'inherit',
                     }}>
-                     <Link to="/user" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
+                     <Link to="/login" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
                     <Person />
                     </Link>
                     </ListItemIcon>

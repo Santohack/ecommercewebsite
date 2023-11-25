@@ -21,18 +21,17 @@ export const protect = asyncHandler(async (req, res, next) => {
     } else {
 
         res.status(401)
-        throw new Error('Not Authorized')
+        throw new Error('Not Authorized no token getting')
     }
 })
 
-
-export const admin = (req, res, next) => {
-
+const admin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
-        next()
+      next()
     } else {
-        res.status(401)
-        throw new Error('Not Authorized')
+      res.status(401)
+      throw new Error('Not authorized as an admin')
     }
-
-}
+  }
+  
+  export {  admin }

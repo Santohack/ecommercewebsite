@@ -1,15 +1,15 @@
 import { admin, protect } from "../middleWere/authHandler.js";
-import { authUser, deleteUser, getUser, getUserById, logoutUSer, registerUser, updateProfile, updateUser, userProfile } from "../controller/userController.js";
+import { getUsers, updateUser, authUser, updateUserProfile, getUserById, deleteUser, logoutUSer, registerUser, getUserProfile } from "../controller/userController.js";
 
 import express from "express";
 
 const router = express.Router()
 
-router.route("/").post(registerUser).get(protect, admin, getUser)
+router.route("/").post(registerUser).get(protect,  getUsers)
 router.post('/logout', logoutUSer)
-router.post('/login', authUser)
-router.route('/profile').get(protect, userProfile).put(protect, updateProfile)
-router.route('/:id').delete(protect, admin, deleteUser).get(protect, admin, getUserById).put(protect, admin, updateUser)
+router.post('/auth', authUser)
+router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
+router.route('/:id').delete(protect, deleteUser).get(protect,  getUserById).put(protect, updateUser)
 
 
 export default router
