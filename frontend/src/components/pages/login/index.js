@@ -1,15 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginContainer } from '../../styles/login';
 import { Box, Button, FormControl, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
+import { setCrediential } from '../../../slices/authslice';
+import { useLoginMutation } from '../../../slices/userApiSlice';
+import Spinner from '../../spinner';
+import { toast } from 'react-toastify';
 
 const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [login, { isLoading }] = useLoginMutation();
+    const { userInfo } = useSelector((state) => state.auth);
+    const { search } = useLocation();
+    const sp = new URLSearchParams(search);
+    const redirect = sp.get('redirect') || '/';
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (userInfo) {
+            navigate(redirect);
+        }
+    }, [navigate, redirect, userInfo]);
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Submitted", { email, password });
+        try {
+
+            const res = await login({ email, password }).unwrap();
+            dispatch(setCrediential({ ...res }));
+            navigate(redirect);
+            toast.success("Login Successfull");
+
+        } catch (error) {
+            toast.error(error?.data?.message || error?.error);
+            console.log("error", error);
+
+        }
+
     };
 
     return (
@@ -40,8 +70,10 @@ const LoginScreen = () => {
                             variant="outlined"
                         />
                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginRight: '50px', justifyContent: 'space-between' }}>
-                            <Button type="submit" sx={{ width: '20ch' }} variant="contained">Login</Button>
-                            <Typography variant="body1" sx={{ marginLeft: '10px' }}>New Here? <Link to='/register'>Register</Link></Typography>
+                            <Button type="submit" sx={{ width: '20ch' }} variant="contained" disabled={isLoading}>{isLoading && <CircularProgress size={24} style={{ position: 'absolute', left: '73%', color:"darkgray" }} />}
+                                Login</Button>
+
+                            <Typography variant="body1" sx={{ marginLeft: '10px' }}>New Here? <Link to={redirect ? `/register?redirect=${redirect}` : `/register}`}>Register</Link></Typography>
                         </div>
                     </FormControl>
                 </Box>

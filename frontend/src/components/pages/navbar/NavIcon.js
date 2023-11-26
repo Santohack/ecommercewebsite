@@ -6,10 +6,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import React from 'react'
 import { useSelector } from 'react-redux';
+import AccountMenu from '../../AccountMenu';
 
 const NavIcon = ({match}) => {
   const Component = match? MobileContainer: DesktopContainer
   const {cartItem} = useSelector((state)=>state.cart)
+  const {userInfo} = useSelector((state)=>state.auth)
     return (
         <>
         <Component>
@@ -55,9 +57,10 @@ const NavIcon = ({match}) => {
                         alignItems:'center',
                         color: match ? 'grey' : 'inherit',
                     }}>
-                     <Link to="/login" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
+                        {userInfo ? (<AccountMenu name={userInfo.name} />):(<> <Link to="/login" style={{ color: match ? 'grey' : 'inherit', textDecoration: 'none' }}>
                     <Person />
-                    </Link>
+                    </Link> </>)}
+                    
                     </ListItemIcon>
                 </ListItemButton>
             </MyList>

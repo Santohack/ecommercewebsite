@@ -6,12 +6,14 @@ import Cart from "./components/pages/cart";
 import ProductDetail from "./components/pages/productDetail";
 import LoginScreen from "./components/pages/login";
 import RegsiterScreen from "./components/pages/register";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
       <Router>
-        <NavBar />
+        <NavBar /><ToastContainer />
         <Container maxWidth="xl">
           <Routes>
             <Route path="/" element={<ProductList />} />
@@ -20,6 +22,7 @@ function App() {
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegsiterScreen />} />
           </Routes>
+          
         </Container>
       </Router>
     </>
