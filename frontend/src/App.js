@@ -10,6 +10,8 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddress from "./components/pages/shippingAddress";
 import PrivateRoute from "./components/privateRoute";
+import Payment from "./components/pages/payment";
+import PlaceOrder from "./components/pages/placeOrder";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         
             <Route path="" element = {<PrivateRoute />}>
             <Route path = "/shipping" element = {<ShippingAddress />} />
+            <Route path = "/payment" element = {<Payment />} />
+            <Route path = "/placeorder" element = {<PlaceOrder />} />
               </Route>
           </Routes>
           
