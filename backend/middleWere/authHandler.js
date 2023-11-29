@@ -4,34 +4,34 @@ import jwt from "jsonwebtoken";
 
 export const protect = asyncHandler(async (req, res, next) => {
     let token;
-    ///read JWT from token
-    token = req.cookies.jwt
-
+  
+    // Read JWT from the 'jwt' cookie
+    token = req.cookies.jwt;
+  
     if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET)
-            req.user = await User.findById(decoded.userId).select('-password')
-            next()
-        } catch (error) {
-            console.log(error)
-            res.status(401)
-            throw new Error('Not Authorized,token failed')
-        }
-
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  
+        req.user = await User.findById(decoded.userId).select('-password');
+  
+        next();
+      } catch (error) {
+        console.error(error);
+        res.status(401);
+        throw new Error('Not authorized, token failed');
+      }
     } else {
-
-        res.status(401)
-        throw new Error('Not Authorized no token getting')
+      res.status(401);
+      throw new Error('Not authorized, no token');
     }
-})
+  });
 
 const admin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
-      next()
+      next();
     } else {
-      res.status(401)
-      throw new Error('Not authorized as an admin')
+      res.status(401);
+      throw new Error('Not authorized as an admin');
     }
-  }
-  
+  };
   export {  admin }

@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PaymentContainer } from '../../styles/shipping'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -10,7 +10,8 @@ const Payment = () => {
     const navigate = useNavigate();
 const [payment, setPayment] = React.useState('paypal');
 const cart = useSelector((state) => state.cart);
-const { paymentMethod } = cart;
+const { shippingAddress } = cart;
+
     const handleSubmit = (e) => {
         
         e.preventDefault();
@@ -18,6 +19,18 @@ const { paymentMethod } = cart;
         navigate('/placeorder');
         console.log('Payment Method Submitted');
     }
+
+    useEffect(() => {
+        console.log("shippingAddress", shippingAddress);
+        if( !shippingAddress ||
+            !shippingAddress.address ||
+            !shippingAddress.city ||
+            !shippingAddress.postalCode ||
+            !shippingAddress.country){
+            navigate('/shipping')
+        }
+        
+    }, [shippingAddress, navigate]);
     return (
         <>
          <Box sx={{
